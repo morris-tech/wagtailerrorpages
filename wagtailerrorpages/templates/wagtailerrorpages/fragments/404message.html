@@ -22,10 +22,12 @@
   <h2>What now?</h2>
   <p>You can search for what you need using the box below, or <a href="/">visit our homepage</a>.
 
-  <form method="get" action="{% url "search" %}">
-    <input type="text" name="query" placeholder="What are you looking for?">
-    <input type="submit" value="Search">
-  </form>
+  {% if search %}
+    <form method="get" action="{% url "search" %}">
+      <input type="text" name="query" placeholder="What are you looking for?">
+      <input type="submit" value="Search">
+    </form>
+  {% endif %}
 </div>
 
 <script src="{% static "wagtailerrorpages/main.js" %}"></script>
