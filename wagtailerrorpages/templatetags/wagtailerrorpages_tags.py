@@ -1,4 +1,6 @@
 from django import template
+from django.core.urlresolvers import reverse
+
 from wagtail.wagtailcore.models import Page
 try:
     # Python 3
@@ -15,8 +17,16 @@ def message404(context):
     url_path = context['request'].path_info
     search_query = unquote_plus(url_path).replace('/', ' ')
     search_results = Page.objects.live().public().search(search_query)
+    search = True
+
+    try:
+        # Some sites may not have search.
+        reverse('search')
+    except:
+        search = False
 
     return {
+        'search': search,
         'search_query': search_query,
         'search_results': search_results,
     }
